@@ -8,6 +8,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="loader-wrapper">
+        <div id="loader-bar-container">
+            <div id="loader-bar"></div>
+        </div>
+        <p id="loader-text">Charting the Course...</p>
+    </div>
+
+    <a href="#synopsis" class="pamphlet-side" id="pamphlet-left">
+        <span>THE STORY</span>
+    </a>
+    <a href="BlueWaters.pdf" class="pamphlet-side" id="pamphlet-right" download>
+        <span>DOWNLOAD PDF</span>
+    </a>
 
     <audio id="ambient-audio" loop preload="auto">
         <source src="ambient.mp3" type="audio/mpeg">
@@ -15,26 +28,19 @@
     </audio>
 
     <div id="sea-overlay">
-        
         <div id="music-compass" title="Toggle Ambient Sounds">
             <img src="eu4_icon.png" id="compass-img" alt="EU4 Icon">
-            <span class="compass-label">SOUND</span>
         </div>
 
         <div id="main-ledger">
-            <header class="main-header">
+            <header class="royal-banner">
                 <h1 class="golden-title">Blue Waters<br>A Pirate Tale</h1>
             </header>
-
-            <nav class="brass-nav">
-                <a href="#synopsis">THE STORY</a>
-                <a href="BlueWaters.pdf" download>DOWNLOAD PDF</a>
-            </nav>
 
             <div class="content-body">
                 <section class="main-content-flow">
                     <div id="synopsis" class="text-content">
-                        <h2>A Summary of the Voyage</h2>
+                        <h2 class="azure-heading">A Summary of the Voyage</h2>
                         <p class="synopsis-text">
                             Blue Waters follows the harrowing journey of <strong>Edward Jones</strong>, a former privateer escaping the gallows during the <a href="https://en.wikipedia.org/wiki/1692_Jamaica_earthquake" target="_blank">1692 Jamaica earthquake</a>. When the disaster swallows <a href="https://en.wikipedia.org/wiki/Port_Royal" target="_blank">Port Royal</a>, he assembles a crew defined by their diverse origins.
                         </p>
@@ -45,10 +51,10 @@
                     </div>
                 </section>
                     <div class="manifest-card">
-                        <h3 class="manifest-title">SHIP'S MANIFEST</h3>
+                        <h3 class="manifest-title">SHIP'S MANIFEST:</h3>
                         
                         <div class="manifest-section">
-                            <h4>THE INITIAL CREW</h4>
+                            <h4>THE INITIAL CREW:</h4>
                             <ul>
                                 <li><strong>Billy</strong>: The Quartermaster</li>
                                 <li><strong>James</strong>: The Scholar</li>
@@ -77,24 +83,38 @@
                                 <li><strong>Alice</strong>: The Bohemian</li>
                     </div>
                   <div>
+                </section>
+            </div>
+
             <footer>
                 <p class="legal">Copyright 1692 Printed by Authority of the Crown</p>
             </footer>
         </div>
-      </div>
     </div>
 
     <script>
-        const audio = document.getElementById('ambient-audio');
-        const compass = document.getElementById('music-compass');
+        // LOADER LOGIC
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('loader-wrapper');
+            const bar = document.getElementById('loader-bar');
+            bar.style.width = '100%';
+            setTimeout(() => {
+                loader.classList.add('loader-hidden');
+            }, 2500);
+        });
 
-        compass.addEventListener('click', function() {
-            if (audio.paused) { 
-                audio.play().catch(e => console.log("Playback blocked or file missing.")); 
-                compass.classList.add('spinning'); 
-            } else { 
-                audio.pause(); 
-                compass.classList.remove('spinning'); 
+        // AMBIENT AUDIO LOGIC
+        const compass = document.getElementById('music-compass');
+        const audio = document.getElementById('ambient-audio');
+        const compassImg = document.getElementById('compass-img');
+
+        compass.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                compassImg.style.animationDuration = '10s';
+            } else {
+                audio.pause();
+                compassImg.style.animationDuration = '20s';
             }
         });
     </script>
